@@ -2,12 +2,9 @@
 # Algorithm Class
 # Feb 27th, 2016
 ######################### Algorithms ########################
-<<<<<<< HEAD
 from heapq import heappush, heappop, heapify
 # This finds the minimum spanning tree of a graph using Prim's
 # greedy algorithm.
-=======
->>>>>>> 760141f0a8da0145da84f39717ffbd0e4945fca9
 def prims_mst(G):
     num_vertices = len(G)
     seen = set()
