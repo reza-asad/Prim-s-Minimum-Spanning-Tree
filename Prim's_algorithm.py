@@ -16,23 +16,24 @@ def prims_mst(G):
     edge_costs =  source_connection
     heapify(edge_costs)
 
-    selected_edges = []
+    selected_nodes = [source]
     total_cost = 0
-    while len(seen) != num_vertices:
+    while len(selected_nodes) != num_vertices:
         # Add the next vertex
         next_edge = heappop(edge_costs)
         total_cost += next_edge[0]
-        selected_edges.append(next_edge[1])
-        added_vertex = next_edge[1][2]
+        added_vertex = next_edge[1]
+        selected_nodes.append(added_vertex)
         seen.add(added_vertex)
 
         # Maintain the edges_cost vertex addition
         for edge in G[added_vertex]:
-            if edge[1][2] not in seen:
+            if edge[1] not in seen:
                 heappush(edge_costs, edge)
-    return selected_edges, total_cost
+    return selected_nodes, total_cost
 ######################## Main ###############################
 # Extract the edges
 #data_file = open('edges.txt')
-graph = {'a':{(2, 'a-b'),(5,'a-c')}, 'b':{(1,'b-c'), (3,'b-d'), (2,'b-a')}, 'c':{(10,'c-d'),(1,'c-b'),(5,'c-a')}, 'd':{(10,'d-c'),(3,'d-b')}}
+graph = {'a':{(2, 'b'),(5,'c')}, 'b':{(1,'c'), (3,'d'), (2,'a')}, 
+    'c':{(10,'d'),(1,'b'),(5,'a')}, 'd':{(10,'c'),(3,'b')}}
 print prims_mst(graph)
