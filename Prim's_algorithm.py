@@ -44,7 +44,7 @@ for line in data_file:
     vals = line.split()
     graph[vals[0]].add((int(vals[2]), vals[1]))
     graph[vals[1]].add((int(vals[2]), vals[0]))
-print prims_mst(graph)[1]
+print prims_mst(graph)
 
 
 
