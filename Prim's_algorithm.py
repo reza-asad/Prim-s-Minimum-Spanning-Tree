@@ -3,6 +3,7 @@
 # Feb 27th, 2016
 ######################### Algorithms ########################
 from heapq import heappush, heappop, heapify
+from collections import defaultdict
 # This finds the minimum spanning tree of a graph using Prim's
 # greedy algorithm.
 def prims_mst(G):
@@ -21,6 +22,8 @@ def prims_mst(G):
     while len(selected_nodes) != num_vertices:
         # Add the next vertex
         next_edge = heappop(edge_costs)
+        if next_edge[1] in seen:
+            continue
         total_cost += next_edge[0]
         added_vertex = next_edge[1]
         selected_nodes.append(added_vertex)
@@ -33,7 +36,15 @@ def prims_mst(G):
     return selected_nodes, total_cost
 ######################## Main ###############################
 # Extract the edges
-#data_file = open('edges.txt')
-graph = {'a':{(2, 'b'),(5,'c')}, 'b':{(1,'c'), (3,'d'), (2,'a')}, 
-    'c':{(10,'d'),(1,'b'),(5,'a')}, 'd':{(10,'c'),(3,'b')}}
-print prims_mst(graph)
+data_file = open('edges.txt')
+# Pre process the data
+graph = defaultdict(set)
+next(data_file)
+for line in data_file:
+    vals = line.split()
+    graph[vals[0]].add((int(vals[2]), vals[1]))
+    graph[vals[1]].add((int(vals[2]), vals[0]))
+print prims_mst(graph)[1]
+
+
+
